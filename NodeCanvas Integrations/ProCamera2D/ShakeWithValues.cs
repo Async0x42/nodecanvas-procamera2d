@@ -9,27 +9,33 @@ namespace NodeCanvas.Tasks.PC2D
     [Description("Shakes the camera position along its horizontal and vertical axes with the given values")]
     public class ShakeWithValues : ActionTask
     {
-        [RequiredField] [Tooltip("The camera with the ProCamera2D component, most probably the MainCamera")] public
-            BBParameter<GameObject> MainCamera;
+        [RequiredField]
+        [Tooltip("The camera with the ProCamera2D component, most probably the MainCamera")]
+        public BBParameter<GameObject> MainCamera;
 
-        [Tooltip("The shake strength on each axis")] public BBParameter<Vector2> Strength;
+        [Tooltip("The shake strength on each axis")]
+        public BBParameter<Vector2> Strength;
 
-        [Tooltip("The duration of the shake")] public BBParameter<float> Duration = 1;
+        [Tooltip("The duration of the shake")]
+        public BBParameter<float> Duration = 1;
 
-        [Tooltip(
-            "Indicates how much will the shake vibrate. Don't use values lower than 1 or higher than 100 for better results"
-            )] public BBParameter<int> Vibrato = 10;
+        [Tooltip("Indicates how much will the shake vibrate. Don't use values lower than 1 or higher than 100 for better results")]
+        public BBParameter<int> Vibration = 10;
 
-        [Tooltip("Indicates how much random the shake will be")] [SliderField(0, 1f)] public BBParameter<float>
-            Randomness = .1f;
+        [Tooltip("Indicates how much random the shake will be")]
+        [SliderField(0, 1f)]
+        public BBParameter<float> Randomness = .1f;
 
-        [Tooltip("The initial angle of the shake. Use -1 if you want it to be random.")] [SliderField(-1, 360)] public
-            BBParameter<int> InitialAngle = 10;
+        [Tooltip("The initial angle of the shake. Use -1 if you want it to be random.")]
+        [SliderField(-1, 360)]
+        public BBParameter<int> InitialAngle = 10;
 
-        [Tooltip("The maximum rotation the camera can reach during shake")] public BBParameter<Vector3> Rotation;
+        [Tooltip("The maximum rotation the camera can reach during shake")]
+        public BBParameter<Vector3> Rotation;
 
-        [Tooltip("How smooth the shake should be, 0 being instant")] [SliderField(0, .5f)] public BBParameter<float>
-            Smoothness;
+        [Tooltip("How smooth the shake should be, 0 being instant")]
+        [SliderField(0, .5f)]
+        public BBParameter<float> Smoothness;
 
         protected override string info
         {
@@ -44,7 +50,12 @@ namespace NodeCanvas.Tasks.PC2D
 
         protected override void OnExecute()
         {
-            var shake = MainCamera.value.GetComponent<ProCamera2DShake>();
+            ProCamera2DShake shake;
+
+            if (MainCamera.value == null)
+                shake = ProCamera2D.Instance.GetComponent<ProCamera2DShake>();
+            else
+                shake = MainCamera.value.GetComponent<ProCamera2DShake>();
 
             if (shake == null)
                 Debug.LogError("The ProCamera2D component needs to have the Shake plugin enabled.");
@@ -53,7 +64,7 @@ namespace NodeCanvas.Tasks.PC2D
                 shake.Shake(
                     Duration.value,
                     Strength.value,
-                    Vibrato.value,
+                    Vibration.value,
                     Randomness.value,
                     InitialAngle.value,
                     Rotation.value,

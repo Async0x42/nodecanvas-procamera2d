@@ -9,7 +9,9 @@ namespace NodeCanvas.Tasks.PC2D
     [Description("Moves the camera instantly to the defined position")]
     public class MoveCameraInstantlyToPosition : ActionTask
     {
-        [RequiredField] [Tooltip("The final position of the camera")] public BBParameter<Vector3> CameraPos;
+        [RequiredField]
+        [Tooltip("The final position of the camera")]
+        public BBParameter<Vector3> CameraPos;
 
         protected override string info
         {

@@ -9,8 +9,9 @@ namespace NodeCanvas.Tasks.PC2D
     [Description("Starts or stops a cinematic")]
     public class CinematicsToggle : ActionTask
     {
-        [RequiredField] [Tooltip("The gameObject that contains the ProCamera2DCinematics component")] public
-            BBParameter<GameObject> Cinematics;
+        [RequiredField]
+        [Tooltip("The gameObject that contains the ProCamera2DCinematics component")]
+        public BBParameter<GameObject> Cinematics;
 
         protected override string info
         {
@@ -22,13 +23,13 @@ namespace NodeCanvas.Tasks.PC2D
 
         protected override void OnExecute()
         {
-            var cinematics = Cinematics.value.GetComponent<ProCamera2DCinematics>();
+            var cinematicsComp = Cinematics.value.GetComponent<ProCamera2DCinematics>();
 
-            if (cinematics == null)
+            if (Cinematics == null)
                 Debug.LogError("No Cinematics component found in the gameObject: " + Cinematics.value.name);
 
-            if (ProCamera2D.Instance != null && cinematics != null)
-                cinematics.Toggle();
+            if (ProCamera2D.Instance != null && Cinematics != null)
+                cinematicsComp.Toggle();
 
             EndAction();
         }

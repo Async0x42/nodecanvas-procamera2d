@@ -10,8 +10,8 @@ namespace NodeCanvas.Tasks.PC2D
         )]
     public class Shake : ActionTask
     {
-        [Tooltip("The camera with the ProCamera2D component, most probably the MainCamera. If empty, the ProCamera2D instance will be used.")] public
-            BBParameter<GameObject> MainCamera;
+        [Tooltip("The camera with the ProCamera2D component, most probably the MainCamera. If empty, the ProCamera2D instance will be used.")]
+        public BBParameter<GameObject> MainCamera;
 
         protected override string info
         {
@@ -27,7 +27,7 @@ namespace NodeCanvas.Tasks.PC2D
         protected override void OnExecute()
         {
             ProCamera2DShake shake;
-            
+
             if (MainCamera.value == null)
                 shake = ProCamera2D.Instance.GetComponent<ProCamera2DShake>();
             else

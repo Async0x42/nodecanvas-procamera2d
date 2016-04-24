@@ -9,11 +9,13 @@ namespace NodeCanvas.Tasks.PC2D
     [Description("Apply the given influences to the camera during the corresponding durations")]
     public class ApplyInfluencesTimed : ActionTask
     {
-        [RequiredField] [Tooltip("An array of the vectors representing the influences to be applied")] public
-            BBParameter<Vector2[]> Influences;
+        [RequiredField]
+        [Tooltip("An array of the vectors representing the influences to be applied")]
+        public BBParameter<Vector2[]> Influences;
 
-        [RequiredField] [Tooltip("An array of the vectors representing the influences to be applied")] public
-            BBParameter<float[]> Durations;
+        [RequiredField]
+        [Tooltip("An array of the vectors representing the influences to be applied")]
+        public BBParameter<float[]> Durations;
 
         protected override string info
         {
@@ -27,7 +29,7 @@ namespace NodeCanvas.Tasks.PC2D
         {
             if (ProCamera2D.Instance != null)
             {
-                var entries = Influences.value.GetLength(0);
+                var entries = this.Influences.value.GetLength(0);
 
                 var influences = new Vector2[entries];
                 for (int i = 0; i < entries; i++)
@@ -42,9 +44,9 @@ namespace NodeCanvas.Tasks.PC2D
                 }
 
                 ProCamera2D.Instance.ApplyInfluencesTimed(influences, durations);
-
-                EndAction();
             }
+
+            EndAction();
         }
     }
 }
